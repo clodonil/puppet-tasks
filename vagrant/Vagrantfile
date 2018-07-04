@@ -1,0 +1,40 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'libvirt'
+ 
+Vagrant.configure("2") do |config|
+ 
+  $node_count = 2
+  (1..$node_count).each do |id|
+     config.vm.define "node#{id}" do |nodes|
+         nodes.vm.box = "centos/7"
+         nodes.vm.hostname = "node#{id}"
+         nodes.vm.network :private_network, :ip => "192.168.77.#{20+id}"
+ 
+         nodes.vm.provider :libvirt do |setting|
+              setting.memory = 512
+              setting.cpus = 1
+         end
+    end
+ end
+
+#   config.vm.define :windows do |windows|
+#       windows.vm.box = "WindowsNano"
+#       windows.vm.guest = :windows
+#       windows.vm.communicator = :winrm
+#       windows.vm.network "private_network", ip: "192.168.77.25"
+#   end
+
+  config.vm.define "master" do |master|
+      master.vm.box = "centos/7"
+      master.vm.hostname = "master"
+      master.vm.network :private_network, :ip => "192.168.77.100"
+
+      master.vm.provider :libvirt do |setting|
+           setting.memory = 2048
+           setting.cpus = 2
+      end
+   end
+ 
+end
