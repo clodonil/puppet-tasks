@@ -1,0 +1,15 @@
+{
+  "description" : "Instalação e Desinstalação do OpenJDK",
+  "input_method": "environment",
+  "parameters": {
+        "version": {
+              "description": "Versão do Java Homologado para instalação",
+              "type": "Enum['1_6_0','1_7_0','1_8_0']"
+         },
+        "uninstall":{
+               "description": "Desinstall versões antigas",
+               "type": "Enum[yes,no]"
+         }
+   }
+}
+
