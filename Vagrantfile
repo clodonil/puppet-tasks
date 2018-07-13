@@ -32,11 +32,18 @@ Vagrant.configure("2") do |config|
 
 
  # Puppet Tasks - Bolt
- config.vm.define :bolt do |bolt|
+config.vm.define :bolt do |bolt|
     bolt.vm.hostname = "bolt"
     bolt.vm.network :private_network, :ip => "10.20.1.100"
     bolt.vm.provision :hosts, :sync_hosts => true
+ 
+    # Install of Puppet Bolt
+    bolt.vm.provision "shell", inline: "rpm -ivh http://yum.puppet.com/puppet5/puppet5-release-el-7.noarch.rpm &&  yum -y install puppet-bolt"
+
     
     
- end
+end
+
+
+ 
 end
