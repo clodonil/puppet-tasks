@@ -32,32 +32,11 @@ Vagrant.configure("2") do |config|
 
 
  # Puppet Tasks - Bolt
-config.vm.define :bolt do |bolt|
+ config.vm.define :bolt do |bolt|
     bolt.vm.hostname = "bolt"
     bolt.vm.network :private_network, :ip => "10.20.1.100"
     bolt.vm.provision :hosts, :sync_hosts => true
     
     
-end
-
-
-  # Puppet Enterprise 2018 and Puppet Tasks
-  config.vm.define :master do |master|
-      master.vm.hostname = "master"
-      master.vm.network :private_network, :ip => "10.20.1.200"
-      master.vm.provision :hosts, :sync_hosts => true
-
-      # Shared folder
-      master.vm.synced_folder  "./PuppetServer/","/PuppetServer/"
-      master.vm.synced_folder  "./PuppetServer/Modules","/etc/puppetlabs/code/environments/production/modules/"
-
-      # Start of Vault in mode Dev
-      master.vm.provision "shell", path: "./PuppetServer/install.sh"    
-
-      master.vm.provider :virtualbox do |setting|
-           setting.memory = 4028
-           setting.cpus = 2
-      end
-   end
- 
+ end
 end
